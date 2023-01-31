@@ -1,0 +1,208 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <numeric>
+#include "Creature.h"
+#include "Ant.h"
+#include "Beetle.h"
+
+using namespace std;
+
+bool isEmpty(Creature *c) {
+    return !c;
+}
+
+bool isAnt(Creature *c) {
+    return !isEmpty(c) && c->species == "ant";
+}
+
+bool isBeetle(Creature *c) {
+    return !isEmpty(c) && c->species == "beetle";
+}
+
+Creature *getMinOrthogonalAnt (Creature *grid[10][10], int x, int y) {
+    // down, up, left, right
+    Creature *ants[] = {nullptr, nullptr, nullptr, nullptr};
+    int steps[] = {1, 1, 1, 1};
+
+    // check going down
+    bool foundAnt = false;
+    int i = x; int j = y;
+    for (i = x+1; i < 10; i++)
+    {
+        foundAnt = isAnt(grid[i][j]);
+        if (foundAnt) break;
+        steps[0]++;
+    }
+    if (i>=0 && i<=9 and j>=0 and j<=9)
+        ants[0] = grid[i][j];
+    cout << "nearest down: " <<i<<" "<<j<< " steps: " << steps[0] << endl;
+    
+    // check going up
+    foundAnt = false;
+    i = x; j = y;
+    for (i = x-1; i >= 0; i--)
+    {
+        foundAnt = isAnt(grid[i][j]);
+        if (foundAnt) break;
+        steps[1]++;
+    }
+    if (i>=0 && i<=9 and j>=0 and j<=9)
+        ants[1] = grid[i][j];
+    cout << "nearest up: "  <<i<<" "<<j<< " steps: " << steps[1] << endl;
+    
+
+    // check going left
+    foundAnt = false;
+    i = x; j = y;
+    for (j = y-1; j >= 0; j--)
+    {
+        foundAnt = isAnt(grid[i][j]);
+        if (foundAnt) break;
+        steps[2]++;
+    }
+    if (i>=0 && i<=9 and j>=0 and j<=9)
+        ants[2] = grid[i][j];
+    cout << "nearest left: " <<i<<" "<<j<< " steps: " << steps[2] << endl;
+
+
+    // check going right
+    foundAnt = false;
+    i = x; j = y;
+    for (j = y+1; j < 10; j++)
+    {
+        foundAnt = isAnt(grid[i][j]);
+        if (foundAnt) break;
+        steps[3]++;
+    }
+    if (i>=0 && i<=9 and j>=0 and j<=9)
+        ants[3] = grid[i][j];
+    cout << "nearest right: "  <<i<<" "<<j<< " steps: " << steps[3] << endl;
+
+
+
+
+
+    // check for tie between orth distance, if it exists then pick the ant with most neighbors
+    // make this a separate function later
+    int minsteps = 11;
+    int direction = -1;
+    if (ants[1])
+        cout<<"ZERO!"<<endl;
+    
+    // get minimum step direction and number
+    for (int index = 0; index<4; index++)
+        if (ants[index] && steps[index]<minsteps) {
+            minsteps = steps[index];
+            direction = index;
+        }
+    cout<<"MINSTEPS: "<<minsteps<<endl<<"DIRECTION: "<<direction<<endl;
+    // check for ties in all directions
+    bool ties[] = {false, false, false, false};
+    for (int index = 0; index<4; index++)
+        if (ants[index] && steps[index]==minsteps) {
+            ties[index] = true;
+        }
+    
+    int tied = 0;
+    tied = accumulate(ties , ties+4, tied);
+    cout << "TIES:" << tied << endl;
+    
+    // if no orth ant exists, return nullpointer so parent function can process edges
+    if (tied==0)
+        return nullptr;
+    else if (tied==1)
+        return ants[direction];
+    else
+    {
+        // get ants in order of priority   
+        return nullptr;
+    }
+}
+
+void moveBeetles(Creature *grid[10][10]) {
+    // iterate top to down, the left to right
+    for (int j = 0; j < 10; j++)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            if (!isBeetle(grid[i][j])) continue;
+            cout << "processing: " << i << " " << j << endl;
+            // check all directions to get minimum orthogonal ant
+            Creature *minOrthAnt = getMinOrthogonalAnt(grid, i, j);
+            if (minOrthAnt)
+            {
+                if (minOrthAnt->y )
+                cout<<minOrthAnt->x<<" "<<minOrthAnt->y<<endl;
+            }
+            // else
+                // check the edges
+        }
+    }
+}
+
+void printGrid(Creature *grid[10][10], char antChar, char beetleChar)
+{
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            if (isEmpty(grid[i][j]))
+                cout << " ";
+            else if (isAnt(grid[i][j]))
+                cout << antChar;
+            else
+                cout << beetleChar;
+        }
+        cout << endl;
+    }
+}
+
+int main()
+{
+    string fileName;
+    char antChar;
+    char beetleChar;
+    int turns = 1;
+    ifstream inFile;
+
+    cin >> fileName;
+    cin >> antChar;
+    cin >> beetleChar;
+    inFile.open(fileName);
+
+    string line;
+    Creature *grid[10][10];
+
+    for (int i = 0; i < 10; i++)
+    {
+        getline(inFile, line);
+
+        for (int j = 0; j < 10; j++)
+        {
+            char c = line[j];
+            if (c == 'a')
+                grid[i][j] = new Ant(i, j);
+            else if (c == 'B')
+                grid[i][j] = new Beetle(i, j);
+            else
+                grid[i][j] = nullptr;
+        }
+    }
+
+    for (int i = 0; i < turns; i++)
+    {
+        // 1) Beetles move
+        moveBeetles(grid);
+        // 2) Ants move
+        // moveAnts();
+        // 3) Beetles starve
+        // starveBeetles();
+        // 4) Ants breed
+        // breedAnts();
+        // 5) Beetles breed
+        // breedBeetles();
+    }
+
+    // printGrid(grid, antChar, beetleChar);
+}

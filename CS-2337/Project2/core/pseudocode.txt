@@ -1,0 +1,52 @@
+Linked List Class
+- Head pointer
+- toString function
+    - takes in nothing (self)
+    - returns string
+    - starting with a head pointer, recursively print out the pointer and call the function for the next pointer (if the next pointer is null, exit)
+
+Node Class
+- next pointer
+- data member = player object
+- toString function --> returns player data in the desired order with tabs in the middle
+
+Player Class
+- member variables (int for count):
+    - name
+    - H – hits
+    - O – outs
+    - K – strikeouts
+    - W – walks
+    - P – hit by pitchs
+    - S – sacrifices
+- functions
+    - getBattingAverage()
+        - parameters: #hits and #atBats
+        - returns hits / at-bats
+    - getOnBasePercentage()
+        - parameters: hits, walks, hit by pitch, plate appearances
+        - returns = (hits + walks + hit by pitch) / plate appearances
+
+main function
+{
+    - prompt input filename and take input
+    - take input from file, check if name in linkedlist
+    - - if it is add to that object
+    - - if not append new object
+    - recursively sort linkedlist by alphabetical order name (merge sort)
+    - print each linkedlist object in order
+    - sort linkedlist by each stat with merge sort --> create one function where you enter parameter to sort by
+    - then print league leader based on output format
+}
+
+Test cases:
+- processing multiple lines of input for one person
+- only walks, sacrifices, or pitches in input --> atbats=0 will mess up the formula (cant divide by 0)
+- invalid chars encountered
+- 2 way tie --> only 1st and 2nd place
+- each person's batting record has different number of chars
+- only one person in input file --> no 2nd or third place
+- only two people in input file --> no 3rd place
+- >3 ties for league leader --> output all names in 1st place
+- >2 ties for 2nd place --> output all names in 2nd place
+- >2 ties for 3rd place --> output all names in 2nd place

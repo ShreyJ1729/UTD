@@ -1,0 +1,51 @@
+BinaryTree Class
+- member variable root pointer
+- function Insert()
+- - parameter = Node
+- - implementation: search for node to be inserted starting from root, and upon reaching leaf node insert it left/right based on exponent comparisons
+
+- function Search()
+- - parameter = generic datatype
+- - implementation: simply compare input exponent with exponent of node, and traverse left/right based on comparison
+
+- function Remove
+- - parameter = generic datatype
+- - implementation: search and delete node, then 
+- - - if no children, do nothing
+- - - if one child, that child is now in node's position
+- - - if has two children, find inorder successor of node, copy contents of it to current node and delete it from the leaf
+
+Node class
+- this.data (generic but will be using payload class)
+- this.left pointer
+- this.right pointer
+
+Payload class
+- int coefficient
+- int exponent
+
+main class
+- prompt user input filename
+- read from input file
+- - each polynomial term stored as a node
+- - - while reading in data, ignore whitespace between terms
+- - - insert term by term using Insert(), sorting by exponent in BST
+- - if same exponent, combine coefficients
+- after storing polynomial into tree, create antiderivative by
+- - create a new tree for antiderivative
+- - traversing through tree, for each node using the power rule replace it with new exponent/coefficient and insert that into new tree
+- - if definite integral, then evalute by traversing tree and adding all the terms for start/end of interval
+- print out antiderviative tree through another traversal, and also print out value if definite integral
+
+
+Test cases
+- inconsistent spacing between terms
+- integral from a to b where a > b
+- no constant term so no + C at the end
+- term has no coefficient --> assume it's 1
+- definite integral required --> evaluate using traversal on antiderivative BST
+- integral of 0 --> return just C
+- case where you have to simplify fractions in antiderivative
+- single term --> no plus before term in answer
+- multiple terms with same exponent
+- endpoints of integral are equal --> return 0

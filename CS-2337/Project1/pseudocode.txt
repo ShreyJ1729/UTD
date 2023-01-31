@@ -1,0 +1,55 @@
+Ant class {
+    Breed {
+        Parameters: None
+        Returns: bool --> false for no breeding, true for breeding
+
+        if member variable turns_since_breed, ==3, then return true, else false
+        then reset to 0
+    }
+    Move {
+        Parameters: None
+        Returns: None
+
+        updates the turns_since_breed member variable (increment by 1)
+    }
+}
+
+Beetle class {
+    Breed {
+        Parameters: None
+        Returns: bool --> false for no breed, true for breed
+
+        if turns_since_breed==8, return true, else false
+        then reset to 0
+    }
+    Move {
+        Parameters: boolean --> true for ate an ant, false for didn't
+        Returns: None
+
+        update turns_since_breed member variable (increment by 1)
+        if ate ant, reset turns_since_eat
+        else increment turns_since_eat by 1
+    }
+    Starve {
+        Parameters: None
+        Returns: bool --> false for died, true for alive
+
+        if turns_since_eat==5, return true
+    }
+}
+
+Main {
+    get user input for file name, characters for ant and beetle, and number of turns
+    read initial state file data --> store it into a 10x10 matrix of Creature objects
+    iterate for number of turns {
+        for each of these following steps, iterate over the grid column by column from left to right, up to down
+            1) Beetles move
+            2) Ants move
+            3) Beetles starve (every 5 turns) --> check each beetle's member variable
+        if returns true, delete the beetle
+            4) Ants breed (every 3 turns) --> check each member variable
+        if returns true, go in a circle NESW to put new ant
+            5) Beetles breed (every 8 turns) --> check each beetle's member variables
+        for these move functions, since they return 0/1, iterate over grid (adjacent tiles) to figure out where to put new creature
+    }
+}
