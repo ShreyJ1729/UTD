@@ -1,0 +1,118 @@
+1) Use the mkdir command to create a directory named activity 01
+
+$ mkdir activity\ 01
+
+2) Go to the created directory using the cd command.
+
+$ cd activity\ 01
+
+3) Give the following command vim practice to open the vim editor so it is editing the file practice,
+
+$ vim practice
+
+4) Before you can insert text into the file you are creating, you must put vim into Input mode. Type the letter i (for Input mode)
+to put vim into Input mode.
+
+$ i
+
+5) With vim in Input mode, type a couple of short lines, ending each line with a RETURN. Make sure to end the last line with a
+RETURN.
+
+hello my name is shrey
+i like to code and build cool stuff
+my personal website is shreyjoshi.com
+
+
+6) Before you can give a command to exit from vim, you must put vim into Command mode. Press ESCAPE to put vim into
+Command mode.
+
+ESCAPE
+
+7) With vim in Command mode, give the command wq! to quit and write the new file to disk and exit from vim.
+
+:wq!
+
+8) Back in the shell, Use ls -l to list the names of the files in the working directory.
+
+$ ls -l
+
+9) When you call ls with an argument (a word following ls and separated from ls by a SPACE), ls displays the name of the file
+named by the argument or displays an error message if the file does not exist.
+
+10) Use ls with the name of the file practice.
+
+$ ls practice
+
+11) As compared to ls, which lists the name of a file, the cat utility (Sobell) displays the contents of a file. Use the cat
+utility to display the contents of the file you just created named practice.
+
+$ cat practice
+
+12) The cp utility (Sobell, page 53) makes a copy of a file. Use cp to make a copy of the file practice you just created.
+Name the copied file practice02.
+
+$ cp practice practice02
+
+13) The rm utility (Sobell, page 52) removes (deletes) a file. Use rm to remove the file practice you created using vim;
+do not remove the copy of this file you made in the previous step.
+
+$ rm practice
+
+14) After removing the file practice you created using vim, what do ls and cat show when you list the name of practice
+and contents of that file?
+
+$ ls practice
+
+15) The less utility (Sobell, page 53), which was introduced in the previous lab, displays a file one screen at a time.
+Use the less utility to display a long file, such as /etc/services, one screen at a time and exit from less.
+
+$ less /etc/services
+
+16) By default, the head utility (Sobell, page 56) displays the first 10 lines of a file. Use head to display the first 10
+lines of a file /etc/services.
+
+$ head /etc/services
+
+17) By default, the tail utility (Sobell, page 57) displays the last 10 lines of a file. Use tail to display the last 10 lines of
+the file /etc/services.
+
+$ tail /etc/services
+
+18) The hostname utility (Sobell, page 53) displays the name of the system you are working on. Use hostname to
+display the name of the system you are on.
+
+$ hostname
+
+19) The mv utility (Sobell, page 53) renames a file. Use mv to rename the copy of the file practice02 you made in step
+4 to rename it to practicesave.
+
+$ mv practice02 practicesave
+
+20) The grep utility (Sobell, page 56) searches for a string of characters in a file. Use grep to display all lines that
+contain a string that is in the file practicesave you renamed in a previous step.
+
+$ grep "shrey" practicesave
+
+21) Using the vim editor, create a file named days that holds the names of the days of the week, in calendar order. Use
+cat to display the file.
+a. $ cat days
+b. Monday
+c. Tuesday
+d. Wednesday
+e. Thursday
+f. Friday
+g. Saturday Sunday
+
+22) The sort utility (Sobell, page 58) displays a file in alphabetical order. Use sort to display the days file you created
+in days in alphabetical order.
+
+$ sort days
+
+23) The file utility (Sobell, page 60) identifies the contents of a file. Use file to determine the type of the days file you
+created.
+
+$ file days
+
+24) Which types of files are in the /etc directory?
+
+$ file /etc/*

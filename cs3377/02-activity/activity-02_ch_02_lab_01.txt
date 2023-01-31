@@ -1,0 +1,27 @@
+1. Use the following command to cause the shell you are running to display its name: echo $0
+
+$ echo $0
+
+2. Enter this incorrect command: ls -lst on a command line then press RETURN. Now using the arrow edit keys, correct the command to
+be ls -l as explained starting in Sobell.
+
+$ ls -lst
+
+3. You can use man pages to learn about Unix utilities and other aspects of a Unix system (Sobell,). Read the man page on the man
+utility to find out more about this utility.
+
+$ man man
+
+4. Do a man page on the cat command.
+
+$ man cat
+
+5. Many utilities display a message that is so long it scrolls off the screen. In this case you can use a pipeline (covered in a later lab;
+Sobell) and a pager such as less (Sobell) to display one screen of information at a time.
+Man the cp utility and send the output through a pipeline to less.
+
+$ man cp | less
+
+6. Use man to display information about the echo built-in command.
+
+$ man echo
