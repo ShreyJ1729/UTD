@@ -1,0 +1,33 @@
+1)
+> cd !
+> pwd
+/Users/shreyjosh
+
+2)
+> mkdir two
+two: directory
+
+3)
+> cd two
+> pwd
+/Users/shreyjosh/two
+
+4)
+> vim fox
+> ls
+fox
+
+5)
+> ls /Users/shreyjosh/two
+fox
+
+6)
+> cd ~
+> ls two
+fox
+
+7)
+> rmdir two
+rmdir: two: Directory not empty
+> rm two/fox
+> rmdir two

@@ -1,0 +1,31 @@
+1)
+> touch dog
+> ls dog
+dog
+
+2)
+> ls -l
+-rw-r--r--    1 shreyjoshi  staff     0 Feb  6 00:23 dog
+# file owned by shreyjoshi
+# file belongs to group staff
+# permissions are read/write for owner, read for group, read for others
+
+3)
+> ls -ls /bin/bash
+-r-xr-xr-x  1 root  wheel  1326688 Jan 13 18:57 /bin/bash
+# file owned by root
+# file belongs to group wheel
+# permissions are read/write/execute for owner, read/execute for group, read/execute for others
+# permissions applying to me are read/execute since I'm not the owner and not in the group
+
+4)
+> ls -l dog
+-rw-r--r--    1 shreyjoshi  staff     0 Feb  6 00:23 dog
+> chmod g-r dog
+> chmod o-r dog
+> ls -l dog
+-rw-------    1 shreyjoshi  staff     0 Feb  6 00:23 dog
+> chmod -rwx
+> chmod +r
+> ls -l dog
+-r--r--r--    1 shreyjoshi  staff     0 Feb  6 00:23 dog
