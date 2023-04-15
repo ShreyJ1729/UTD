@@ -31,9 +31,9 @@ def crop_and_resample(gif, i):
     return frame
 
 
-def write_draw_mario(frame, frame_number):
+def write_draw_right_mario(frame, frame_number):
     height, width, channels = frame.shape
-    print(f".macro draw_mario_frame_{frame_number}(%ref_x, %ref_y)")
+    print(f".macro draw_right_mario_frame_{frame_number}(%ref_x, %ref_y)")
     # iterate over each pixel in the image, compute hex value of color (ignoring opacity) and print
     for y in range(height):
         for x in range(width):
@@ -43,16 +43,41 @@ def write_draw_mario(frame, frame_number):
             hex_value = (
                 "0x00" + "".join(["{:02x}".format(c) for c in pixel[:3]]).upper()
             )
-            # define t9 = x = %ref_x + x_coord
-            # print(f"\taddi $t9, %ref_x, {x}")
-            # define tx = x = %ref_x + x_coord
-            # print(f"\taddi $t8, %ref_y, {y}")
-            # print(f"\tdraw_pixel_with_color($t9, $t8, {hex_value})")
             print(
                 f"\tdraw_pixel_with_color_and_offset_immediate({x}, {y}, {hex_value})"
             )
 
     print(f".end_macro")
+
+
+def write_draw_left_mario(frame, frame_number):
+    height, width, channels = frame.shape
+
+    # invert the frame horizontally
+    frame = np.fliplr(frame)
+
+    print(f".macro draw_left_mario_frame_{frame_number}(%ref_x, %ref_y)")
+    # iterate over each pixel in the image, compute hex value of color (ignoring opacity) and print
+    for y in range(height):
+        for x in range(width):
+            pixel = frame[y, x]
+            if (pixel == [255, 255, 255, 0]).all():
+                continue
+            hex_value = (
+                "0x00" + "".join(["{:02x}".format(c) for c in pixel[:3]]).upper()
+            )
+            print(
+                f"\tdraw_left_pixel_with_color_and_offset_immediate({x}, {y}, {hex_value})"
+            )
+
+    print(f".end_macro")
+
+    plt.imshow(frame)
+    plt.show()
+
+
+def write_draw_idle_mario(frame):
+    pass
 
 
 def write_clear_mario(height, width, clear_offset):
@@ -80,21 +105,55 @@ def write_clear_mario(height, width, clear_offset):
     print(f".end_macro")
 
 
-for i in range(num_frames):
-    frame = crop_and_resample(gif, i)
+def process_run_frames(gif, num_frames):
+
+    for i in range(num_frames):
+        frame = crop_and_resample(gif, i)
+        height, width, channels = frame.shape
+
+        # print("Frame " + str(i) + " dimensions: " + str(height) + "x" + str(width))
+
+        # set all pixels with opacity <245 to white opacity 0
+        frame[frame[:, :, 3] < 245] = [255, 255, 255, 0]
+
+        # set bottom left most pixel as reference point
+        reference_point = frame[height - 1, 0]
+
+        write_draw_right_mario(frame, frame_number=i)
+
+        write_draw_left_mario(frame, frame_number=i)
+
+        plt.imshow(frame)
+        plt.show()
+
+    write_clear_mario(height, width, clear_offset=10)
+
+
+def crop_and_resample_idle(gif, i):
+    gif.seek(i)
+
+    # get the frame as numpy array
+    frame = gif.convert("RGBA")
+    frame = np.array(frame)
+
+    # get the dimensions of the frame
     height, width, channels = frame.shape
 
-    # print("Frame " + str(i) + " dimensions: " + str(height) + "x" + str(width))
+    # resample the frame
+    frame = Image.fromarray(frame)
+    frame = frame.resize((30, 50), Image.LANCZOS)
+    frame = np.array(frame)
 
-    # set all pixels with opacity <245 to white opacity 0
-    frame[frame[:, :, 3] < 245] = [255, 255, 255, 0]
+    return frame
 
-    # set bottom left most pixel as reference point
-    reference_point = frame[height - 1, 0]
 
-    write_draw_mario(frame, frame_number=i)
+# now read in the idle frame and do the same thing
+
+gif = Image.open("mario-idle.gif")
+num_frames = gif.n_frames
+
+for i in range(num_frames):
+    frame = crop_and_resample_idle(gif, i)
 
     plt.imshow(frame)
     plt.show()
-
-write_clear_mario(height, width, clear_offset=10)

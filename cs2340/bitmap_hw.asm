@@ -28,15 +28,29 @@
 # 	$t2 = step size (if applicable)
 # 	$t3 = iterator
 
+
+# -----------------------------------------------
+# LONG GRAPHICS MACROS (CTR-F END_LONG_GRAPHICS_MACROS to find the end)
+# -----------------------------------------------
+# 	%regX = register containing X coordinate
+# 	%regY = register containing Y coordinate
+
+# ------------------------------------------------
+# END OF LONG GRAPHICS MACROS
+# ------------------------------------------------
+
+
+
+
 #  -----------------------------------------------
 # CONSTANTS
 # ------------------------------------------------
 
-# WIDTH = 1024 / 4 = 256
-.eqv WIDTH, 256
+# WIDTH = 1024 / 2 = 256
+.eqv WIDTH, 512
 
-# HEIGHT = 512 / 4 = 128
-.eqv HEIGHT, 128
+# HEIGHT = 512 / 2 = 128
+.eqv HEIGHT, 256
 
 #  colors (first 2 bytes are alpha)
 .eqv	RED 	0x00FF0000
@@ -50,8 +64,10 @@
 .eqv INPUT_AVAILABLE, 0xffff0000
 .eqv INPUT_VALUE, 0xffff0004
 
-.eqv PLAYER_HEIGHT, 8
-.eqv PLAYER_WIDTH, 2
+.eqv PLAYER_HEIGHT, 50
+.eqv PLAYER_WIDTH, 40
+
+.eqv CLEAR_THRESHOLD, 10
 
 # ------------------------------------------------
 # DATA
@@ -59,12 +75,10 @@
 
 .data
 
-	PLAYER_X_VELOCITY:	.word 5
-	PLAYER_JUMP_VELOCITY:	.word 3
+	PLAYER_X_VELOCITY:	.word 10
+	PLAYER_JUMP_VELOCITY:	.word 4
 
-	MAX_VELOCITY_X:		.word 1
-
-	GROUND_Y: 	.word 100
+	GROUND_Y: 	.word 200
 
 	VELOCITY_DAMPENING:	.float 0.99
 	GRAVITY_ACCEL:	.float 0.1
@@ -349,6 +363,32 @@
 
 .end_macro
 
+# ----- DRAW PIXEL WITH COLOR -----
+# 	%x = x coordinate
+# 	%y = y coordinate
+# 	%color = color to draw (immediate)
+.macro draw_pixel_with_color_immediate (%x, %y, %color)
+	# address = $gp + 4*(x + y*width)
+	get_pixel_coordinate (%x, %y)
+
+	li	$t9, %color
+	sw	$t9, ($v1)	  # store color at memory location
+
+.end_macro
+
+# ----- DRAW PIXEL WITH COLOR AND OFFSET -----
+# 	%x = x offset from player x (immediate)
+# 	%y = y offset from player y (immediate)
+# 	%color = color to draw (immediate)
+.macro draw_pixel_with_color_and_offset_immediate (%x, %y, %color)
+	# address = $gp + 4*(x + y*width)
+	addi $t9, $s0, %x
+	addi $t8, $s1, %y
+	get_pixel_coordinate (%x, %y)
+
+	li	$t9, %color
+	sw	$t9, ($v1)	  # store color at memory location
+
 # ----- DRAW PIXEL RAW -----
 # 	%address = address to draw pixel
 # 	%color = color to draw
@@ -399,9 +439,10 @@
 
 # ----- CLEAR OLD PLAYER -----
 .macro clear_old_player ()
-	# delete old player drawing
+	# delete old player drawing by drawing a black rectangle over player
+	clear_mario($s0, $s1)
+
 	set_value_immediate ($s2, BLACK)
-	jal draw_player
 
 .end_macro
 
@@ -507,8 +548,8 @@ main:
 # ------------------------------------------------
 
 main_loop:
-	# 33ms per frame for 30fps
-	sleep(33)
+	# 60 fps = 17 ms / frame
+	sleep(17)
 	log_data
 
 	# check if input available. if not, skip the processing and goto update player
@@ -611,7 +652,7 @@ jump:
 	# check if player is on ground
 	player_distance_from_ground
 	# if not on ground, don't jump, just update player's physics and go back to main loop
-	bne $v1, -1, update_player
+	bne $v1, -2, update_player
 
 	decrement_player_velocity_y(PLAYER_JUMP_VELOCITY)
 	# set_player_velocity_y(PLAYER_JUMP_VELOCITY)
@@ -635,45 +676,47 @@ exit:	li	$v0, 10
 # ------------------------------------------------
 draw_player:
 
-	# ----- LEFT SIDE
-	# set start to Y
-	set_value_register	($t0, $s1)
-	# set end as Y - PLAYER_HEIGHT
-	subi 	$t1, $t0, PLAYER_HEIGHT
-	# set x-coordinate to X
-	set_value_register	($t9, $s0)
-	# loop (reverse since we decrement)
+	draw_mario($s0, $s1)
 
-	for_reverse	($t3, $t0, $t1, draw_pixel, $t9, $t3, $s2)
+	# # ----- LEFT SIDE
+	# # set start to Y
+	# set_value_register	($t0, $s1)
+	# # set end as Y - PLAYER_HEIGHT
+	# subi 	$t1, $t0, PLAYER_HEIGHT
+	# # set x-coordinate to X
+	# set_value_register	($t9, $s0)
+	# # loop (reverse since we decrement)
 
-	# ----- TOP SIDE
-	# set start to X
-	set_value_register	($t0, $s0)
-	# set end as X + PLAYER_WIDTH
-	addi 	$t1, $t0, PLAYER_WIDTH
-	# set y-coordinate to Y - PLAYER_HEIGHT
-	subi 	$t9, $s1, PLAYER_HEIGHT
-	# loop
-	for	($t3, $t0, $t1, draw_pixel, $t3, $t9, $s2)
+	# for_reverse	($t3, $t0, $t1, draw_pixel, $t9, $t3, $s2)
 
-	# ----- RIGHT SIDE
-	# set start to Y - PLAYER_HEIGHT
-	subi 	$t0, $s1, PLAYER_HEIGHT
-	# set end as Y
-	set_value_register	($t1, $s1)
-	# set x-coordinate to X + PLAYER_WIDTH
-	addi 	$t9, $s0, PLAYER_WIDTH
-	# loop
-	for	($t3, $t0, $t1, draw_pixel, $t9, $t3, $s2)
+	# # ----- TOP SIDE
+	# # set start to X
+	# set_value_register	($t0, $s0)
+	# # set end as X + PLAYER_WIDTH
+	# addi 	$t1, $t0, PLAYER_WIDTH
+	# # set y-coordinate to Y - PLAYER_HEIGHT
+	# subi 	$t9, $s1, PLAYER_HEIGHT
+	# # loop
+	# for	($t3, $t0, $t1, draw_pixel, $t3, $t9, $s2)
 
-	# ----- BOTTOM SIDE
-	# set start to X + PLAYER_WIDTH
-	addi 	$t0, $s0, PLAYER_WIDTH
-	# set end as X
-	set_value_register	($t1, $s0)
-	# set y-coordinate to PLAYER_HEIGHT
-	set_value_register	($t9, $s1)
-	# loop
-	for_reverse	($t3, $t0, $t1, draw_pixel, $t3, $t9, $s2)
+	# # ----- RIGHT SIDE
+	# # set start to Y - PLAYER_HEIGHT
+	# subi 	$t0, $s1, PLAYER_HEIGHT
+	# # set end as Y
+	# set_value_register	($t1, $s1)
+	# # set x-coordinate to X + PLAYER_WIDTH
+	# addi 	$t9, $s0, PLAYER_WIDTH
+	# # loop
+	# for	($t3, $t0, $t1, draw_pixel, $t9, $t3, $s2)
+
+	# # ----- BOTTOM SIDE
+	# # set start to X + PLAYER_WIDTH
+	# addi 	$t0, $s0, PLAYER_WIDTH
+	# # set end as X
+	# set_value_register	($t1, $s0)
+	# # set y-coordinate to PLAYER_HEIGHT
+	# set_value_register	($t9, $s1)
+	# # loop
+	# for_reverse	($t3, $t0, $t1, draw_pixel, $t3, $t9, $s2)
 
 	jr 	$ra
