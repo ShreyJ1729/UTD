@@ -1,3 +1,5 @@
+package assignment1;
+
 public class Pair<T> {
     private T first;
     private T second;

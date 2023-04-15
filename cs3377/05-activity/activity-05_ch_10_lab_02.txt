@@ -1,0 +1,25 @@
+1.
+myname="John Doe"
+echo $myname
+echo "$myname"
+echo '$myname'
+
+2.
+readonly myname
+myname="Jane Doe"
+
+3.
+echo $HOME
+echo ~
+ls ~
+
+4.
+echo $PATH
+
+5.
+echo '#!/bin/bash' > display_info
+echo 'echo "Date and Time: $(date)"' >> display_info
+echo 'echo "Home directory: $HOME"' >> display_info
+echo 'echo "PATH variable: $PATH"' >> display_info
+chmod +x display_info
+./display_info

@@ -1,0 +1,148 @@
+1.
+$ head /etc/services
+#
+# Network services, Internet style
+#
+# Note that it is presently the policy of IANA to assign a single well-known
+# port number for both TCP and UDP; hence, most entries here have two entries
+# even if the protocol doesn't support UDP operations.
+#
+# The latest IANA port assignments can be gotten from
+#
+#	http://www.iana.org/assignments/port-numbers
+$ ls /etc
+afpovertcp.cfg				ntp_opendirectory.conf
+aliases					openldap
+aliases.db				pam.d
+apache2					passwd
+asl					paths
+asl.conf				paths.d
+auto_home				periodic
+auto_master				pf.anchors
+autofs.conf				pf.conf
+bashrc					pf.os
+bashrc_Apple_Terminal			postfix
+com.apple.screensharing.agent.launchd	ppp
+csh.cshrc				profile
+csh.login				protocols
+csh.logout				racoon
+cups					rc.common
+defaults				rc.netboot
+find.codes				resolv.conf
+ftpusers				rmtab
+gettytab				rpc
+group					rtadvd.conf
+hosts					security
+hosts.equiv				services
+irbrc					shells
+kern_loader.conf			snmp
+krb5.keytab				ssh
+localtime				ssl
+locate.rc				sudo_lecture
+mail.rc					sudoers
+man.conf				sudoers.d
+manpaths				syslog.conf
+manpaths.d				ttys
+master.passwd				uucp
+networks				wfs
+newsyslog.conf				xtab
+newsyslog.d				zprofile
+nfs.conf				zshrc
+notify.conf				zshrc_Apple_Terminal
+ntp.conf
+$ who
+shreyjoshi       console      Feb  2 10:18
+shreyjoshi       ttys001      Feb 13 18:42
+$ date
+Mon Feb 13 18:44:17 CST 2023
+
+2.
+<Up Arrow Key>
+
+3.
+$ history
+  989  ./myname2
+  990  chmod +x myname2
+  991  ./myname2
+  992  ./myname2
+  993  cd ..
+  994  cd ~/dev
+  995  ls
+  996  cd utd/cs3377/experiments
+  997  ls
+  998  echo $*
+  999  $@
+ 1000  echo $myvar
+ 1001  head /etc/services
+ 1002  ls /etc
+ 1003  who
+ 1004  date
+$ history | tail -10
+996  cd utd/cs3377/experiments
+  997  ls
+  998  echo $*
+  999  $@
+ 1000  echo $myvar
+ 1001  head /etc/services
+ 1002  ls /etc
+ 1003  who
+ 1004  date
+ 1005  history
+$ !2
+git status
+$ !-2
+history | tail -10
+$ !!
+history | tail -10
+
+4.
+alias d='date'
+d
+Mon Feb 13 18:45:28 CST 2023
+alias
+d=date
+run-help=man
+rvm-restart='rvm_reload_flag=1 source '\''/Users/shreyjoshi/.rvm/scripts/rvm'\'
+which-command=whence
+
+5.
+alias ls='ls -l'
+$ ls
+drwx------@   3 shreyjoshi  staff     96 Aug 25 00:55 Applications
+drwx------+  42 shreyjoshi  staff   1344 Feb  5 00:28 Desktop
+drwx------+  14 shreyjoshi  staff    448 Feb 10 17:02 Documents
+drwx------@ 318 shreyjoshi  staff  10176 Feb 11 15:01 Downloads
+drwx------@ 105 shreyjoshi  staff   3360 Feb  6 16:05 Library
+drwx------    7 shreyjoshi  staff    224 Jan 29 11:11 Movies
+drwx------+   4 shreyjoshi  staff    128 Aug 25 01:46 Music
+drwxr-xr-x    4 shreyjoshi  staff    128 Jan  9 17:38 OutputDir
+drwx------+   5 shreyjoshi  staff    160 Oct 18 21:25 Pictures
+drwxr-xr-x    3 shreyjoshi  staff     96 Jan  4 11:12 Postman
+drwxr-xr-x+   4 shreyjoshi  staff    128 Aug 25 00:48 Public
+drwxr-xr-x   50 shreyjoshi  staff   1600 Feb  6 19:29 dev
+drwxr-xr-x  187 shreyjoshi  staff   5984 Jan 13 13:36 docs
+drwxr-xr-x   12 shreyjoshi  staff    384 Dec 22 22:11 invokeai
+drwxr-xr-x   20 shreyjoshi  staff    640 Nov 11 17:19 miniconda3
+drwxr-xr-x    3 shreyjoshi  staff     96 Jan  4 11:16 nltk_data
+$ unalias ls
+$ ls
+Applications	Library		Pictures	docs
+Desktop		Movies		Postman		invokeai
+Documents	Music		Public		miniconda3
+Downloads	OutputDir	dev		nltk_data
+
+6.
+~/.bashrc or ~/.bash_aliases
+
+7.
+welcome () { echo "Welcome to my computer"; }
+welcome
+Welcome to my computer
+
+8.
+long () { date; ls -l; }
+long
+Mon Feb 13 18:46:48 CST 2023
+
+9.
+~/.bashrc or ~/.bash_profile

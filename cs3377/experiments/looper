@@ -1,0 +1,6 @@
+VARIABLES = ($*)
+
+for (( i = 0; i < $#; i++ )); do
+    VARIABLE = ${VARIABLES[$i]}
+    echo $VARIABLE
+done

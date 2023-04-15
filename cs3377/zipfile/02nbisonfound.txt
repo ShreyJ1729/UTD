@@ -1,0 +1,3 @@
+Time Elapsed (nano) : 625
+Found Pattern Count : 48
+Searched Pattern : ((((((()(())(()()))))(()(()(())))()()))()))()(()()

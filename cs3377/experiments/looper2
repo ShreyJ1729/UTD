@@ -1,0 +1,4 @@
+for VARIABLE in "$@"
+do
+    echo $VARIABLE
+done

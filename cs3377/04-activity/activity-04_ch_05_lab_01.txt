@@ -1,0 +1,75 @@
+1.
+
+# A token is a single unit of a command in command line, usually separated by spaces
+
+# An argument is a piece of data passed to a command, commonly a file path
+
+# An option is a flag or switch that modifies the behavior of a command, usually preceded by a dash
+
+2.
+
+A command line with zero arguments:
+$ date
+
+A command line with one argument:
+$ cat file.txt
+
+A command line with two arguments:
+$ cp file1.txt file2.txt
+
+A command line with one option and one argument:
+$ ls -l /path/to/directory
+
+3.
+
+$ ls -r
+This option will display the contents of the current directory in reverse order.
+
+$ ls -l -r
+This option will display the contents of the current directory in reverse order, and will also show additional information about each file, such as its size, permissions, and modification time.
+
+$ cp -r /path/to/source/directory /path/to/destination/directory
+This option will copy the entire directory hierarchy, including all subdirectories and files, from the source directory to the destination directory.
+
+$ head -n 20 file.txt
+This option will display the first 20 lines of file.txt.
+
+$ tail -n 20 file.txt
+This option will display the last 20 lines of file.txt.
+
+4.
+
+# A builtin is a command that is built into the shell, rather than being a separate executable file.
+
+# A builtin differs from a utility in that it is executed directly by the shell itself, rather than being executed as a separate process. This can result in faster execution time and greater integration with the shell environment.
+
+# The builtins man page lists all of the builtin commands available in the shell. To access the front part of the builtins man page, type `man builtins` in the terminal.
+
+# One example of a builtin command is cd
+
+5.
+
+$ echo hi there
+$ echo hello there # use thed left and right arrow keys to navigate to the `hi` and replace it with `hello`
+
+6.
+
+Using pathname expansion, list the files in the `/usr/bin` directory that have the characters `ab` anywhere in their names:
+
+$ ls /usr/bin/_ab_
+
+List the files in the `/usr/bin` directory that begin with the letter `u`:
+
+$ ls /usr/bin/u\*
+
+List the files in the `/usr/bin` directory that begin with `un`:
+
+$ ls /usr/bin/un\*
+
+List the files in the `/usr/bin` that have names that are one character long:
+
+$ ls /usr/bin/?
+
+List the files in your home directory that begin with a period followed by the letters `bash` (`.bash`):
+
+$ ls ~/.bash\*

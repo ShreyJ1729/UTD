@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo -n "Input a string: "
+read string
+
+if [ -n "$string" ]; then
+  echo "You entered: $string"
+fi

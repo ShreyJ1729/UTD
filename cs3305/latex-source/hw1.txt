@@ -1,0 +1,61 @@
+1)
+$S = {0, 2, 6, 12, 20, 30, 42, \cdots}$
+
+The differences between consecutive terms grows by $2$, thus the recurrence relation here is $a_{n+1} = a_{n} + 2n$ with initial condition $a_1 = 0$. In other words, each element in this series is twice the value of the simple sums series. Thus, the explicit formula is $a_{n} = n(n+1)$.
+
+2)
+
+\hspace{5mm} a) Let $a_n$ denote the number of strings of length n of letters of the alphabet. For $n=1$, we have $A_n = 26$. For every increment of $n$, we have $26$ ways to append to each of the previous strings, thus the recurrence relation is $a_{n+1} = 26a_n$ with initial condition $a_1 = 26$. Thus the explicit formula for the series is $a_n = 26^n$.
+
+\hspace{5mm} b) If no adjacent letters can be the same, the recurrence relation is now $a_{n+1} = 25a_n$ with the same inital condition $a_1 = 26$, since one letter now cannot be appended to each string, namely the last letter of the string. Thus, the explicit formula is $a_n = 26 \cdot 25^{n-1}$.
+
+\hspace{5mm} c) Assuming we know $a_n$, then we have $26-n$ valid letters that can be appended to each string of length $n$ with no repeats. Thus, the recurrence relation is $a_{n+1} = a_n(26-n)$. with initial condition $a_1 = 26$. The explicit formula is then $a_{n+1} = (26-n)!$
+
+3) $b_n = 2b_{n-1} + n - 2^n \quad \text{and} \quad b_0 = 5$
+
+\hspace{5mm} a) $b_{n-1} = 2b_{n-2} + n-1 - 2^{n-1}$
+
+\hspace{5mm} b) $b_n = 2b_{n-1} + n - 2^n$, substituting $b_{n-1}$ from (a) gives us
+
+$b_n = 2(2b_{n-2} + n-1 - 2^{n-1}) + n - 2^n$
+
+$b_n = 4b_{n-2} + 2n-2 - 2^{n} + n - 2^n$
+
+$\boxed{b_n = 4b_{n-2} + 3n-2 - 2(2^{n})}$
+
+\hspace{5mm} c) $b_n = 4b_{n-2} + 3n-2 - 2(2^{n})$ from (b). Expanding $b_{n-2}$ gives us
+
+$b_n = 4(2b_{n-3} + n-2 - 2^{n-2}) + 3n-2 - 2^{n+1}$
+
+$b_n = 8b_{n-3} + 4n-8 - 2^{n} + 3n-2 - 2^{n+1}$
+
+$\boxed{b_n = 8b_{n-3} + 7n - 10 - 3(2^{n})}$
+
+\hspace{5mm} d) $$b_n = 2^n \cdot 5 + n(2^n-1) + (1-n)2^{n+1} - 2 - n(2^n)$$
+
+4) $$\sum_{i=1}^{50}{3i}$$
+
+5) $a=4$, $r=1/2$, $n=9$. The sum is thus
+$$S_n = a \frac{1-r^n}{1-r} = 4 \cdot \frac{1-(1/2)^9}{1-1/2}$$
+$$ S_n = 4 \cdot \frac{511/512}{1/2} = \boxed{\frac{511}{64}}$$
+
+6) Here, $a=1$ and $r=x^2$. The sum is $$S = \frac{a}{1-r} = \frac{1}{1-x^2}$$
+
+7) The number of prints is just $1 + 2 + 3 + \cdots + n = \frac{n(n+1)}{2}$
+
+%$$S = \sum_{i=1}^{n}{\sum_{j=i}^{n}{j}}$$
+%$$S = \sum_{i=1}^{n}{\left (  \sum_{j=1}^{n}{j} - \sum_{j=1}^{i-1}{j} \right )}$$
+%$$S = \sum_{i=1}^{n}{\left ( \frac{n(n+1)}{2} - \frac{i(i-1)}{2} \right )}$$
+%$$S = \sum_{i=1}^{n}{\left ( \frac{n^2}{2} + \frac{n}{2} - \frac{i^2}{2} + \frac{i}{2} \right )}$$
+%$$S = \frac{n^3}{2} + \frac{n^2}{2} - \sum_{i=1}^{n}{\left (\frac{i^2}{2} - \frac{i}{2} \right )}$$
+%$$S = \frac{n^3}{2} + \frac{n^2}{2} - \frac{S}{2} + \frac{n(n+1)}{2}$$
+%Solving for $S$ and factoring gives us
+%$$S = \frac{n(n+1)(2n+1)}{6}$$
+%
+So the complexity function is $O(N^2)$
+
+8) $x^2$ grows faster than $x\log{x}$ so the upper bound for $x\log{x}$ is $x^2$ but the upper bound for $x^2$ is not $x\log{x}$. Thus $x\log{x} = O(x^2)$ but $x^2 \neq O(x\log{x})$.
+
+9) For all $n>1$, $\log{(n+1)} < \log{2n} = O(\log{n})$. Thus $\log{(n+1)}$ is $O(\log{n})$
+
+Similarly, for all $n>1$, $\log{(n^2+1)} < \log{(4n^2)} = 2\log{2n} = O(\log{n})$. Thus $\log{(n^2 + 1)}$ is $O(\log{n})$

@@ -1,0 +1,31 @@
+
+
+In Parent: Write to pipe getQuoteMessage sent Message: Get Quote
+In Child : Read from pipe pipeParentWriteChildMessage read Message: Get Quote
+In Child : Write to pipe pipeParentReadChildMessage sent Message:
+“The road to hell is paved with works-in-progress.” ~Philip Roth
+
+In Parent: Read from pipe pipeParentReadChildMessage read Message:
+“The road to hell is paved with works-in-progress.” ~Philip Roth
+
+---------------------------------------------
+In Parent: Write to pipe getQuoteMessage sent Message: Get Quote
+In Child : Read from pipe pipeParentWriteChildMessage read Message: Get Quote
+In Child : Write to pipe pipeParentReadChildMessage sent Message:
+“Don’t spend time beating on a wall, hoping to transform it into a door.” ~Coco Chanel
+
+In Parent: Read from pipe pipeParentReadChildMessage read Message:
+“Don’t spend time beating on a wall, hoping to transform it into a door.” ~Coco Chanel
+
+---------------------------------------------
+In Parent: Write to pipe getQuoteMessage sent Message: Get Quote
+In Child : Read from pipe pipeParentWriteChildMessage read Message: Get Quote
+In Child : Write to pipe pipeParentReadChildMessage sent Message:
+“You ask me why I spend my life writing? Do I find entertainment?  Is it worthwhile? Above all, does it pay? If not, then, is there a reason?… I write only because there is a voice within me. That will not be still.” ~Sylvia Plath
+
+In Parent: Read from pipe pipeParentReadChildMessage read Message:
+“You ask me why I spend my life writing? Do I find entertainment?  Is it worthwhile? Above all, does it pay? If not, then, is there a reason?… I write only because there is a voice within me. That will not be still.” ~Sylvia Plath
+
+---------------------------------------------
+In Parent: Write to pipe getQuoteMessage sent Message: Exit
+In Child : Read from pipe pipeParentWriteChildMessage read Message: Exit

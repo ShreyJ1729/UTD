@@ -1,0 +1,109 @@
+1.
+
+$ cat
+
+# text typed here is outputted
+
+2.
+
+$ cat /etc/hosts
+
+##
+
+# Host Database
+
+#
+
+# localhost is used to configure the loopback interface
+
+# when the system is booting. Do not change this entry.
+
+##
+
+127.0.0.1 localhost
+255.255.255.255 broadcasthost
+::1 localhost
+
+$ cat echo "comets are the best" > file.txt
+
+3. cat file.txt
+
+4.
+
+$ ls -l > ls.out
+$ cat ls.out
+
+total 0
+drwx------@ 3 shreyjoshi staff 96 Aug 25 00:55 Applications
+drwx------+ 42 shreyjoshi staff 1344 Feb 5 00:28 Desktop
+drwx------+ 14 shreyjoshi staff 448 Feb 10 17:02 Documents
+drwx------@ 318 shreyjoshi staff 10176 Feb 11 15:01 Downloads
+drwx------@ 105 shreyjoshi staff 3360 Feb 6 16:05 Library
+drwx------ 7 shreyjoshi staff 224 Jan 29 11:11 Movies
+drwx------+ 4 shreyjoshi staff 128 Aug 25 01:46 Music
+drwxr-xr-x 4 shreyjoshi staff 128 Jan 9 17:38 OutputDir
+drwx------+ 5 shreyjoshi staff 160 Oct 18 21:25 Pictures
+drwxr-xr-x 3 shreyjoshi staff 96 Jan 4 11:12 Postman
+drwxr-xr-x+ 4 shreyjoshi staff 128 Aug 25 00:48 Public
+drwxr-xr-x 50 shreyjoshi staff 1600 Feb 6 19:29 dev
+drwxr-xr-x 187 shreyjoshi staff 5984 Jan 13 13:36 docs
+drwxr-xr-x 12 shreyjoshi staff 384 Dec 22 22:11 invokeai
+-rw-r--r-- 1 shreyjoshi staff 0 Feb 12 23:58 ls.out
+drwxr-xr-x 20 shreyjoshi staff 640 Nov 11 17:19 miniconda3
+drwxr-xr-x 3 shreyjoshi staff 96 Jan 4 11:16 nltk_data
+
+5.  $ who >> ls.out
+    $ cat ls.out
+
+total 0
+drwx------@ 3 shreyjoshi staff 96 Aug 25 00:55 Applications
+drwx------+ 42 shreyjoshi staff 1344 Feb 5 00:28 Desktop
+drwx------+ 14 shreyjoshi staff 448 Feb 10 17:02 Documents
+drwx------@ 318 shreyjoshi staff 10176 Feb 11 15:01 Downloads
+drwx------@ 105 shreyjoshi staff 3360 Feb 6 16:05 Library
+drwx------ 7 shreyjoshi staff 224 Jan 29 11:11 Movies
+drwx------+ 4 shreyjoshi staff 128 Aug 25 01:46 Music
+drwxr-xr-x 4 shreyjoshi staff 128 Jan 9 17:38 OutputDir
+drwx------+ 5 shreyjoshi staff 160 Oct 18 21:25 Pictures
+drwxr-xr-x 3 shreyjoshi staff 96 Jan 4 11:12 Postman
+drwxr-xr-x+ 4 shreyjoshi staff 128 Aug 25 00:48 Public
+drwxr-xr-x 50 shreyjoshi staff 1600 Feb 6 19:29 dev
+drwxr-xr-x 187 shreyjoshi staff 5984 Jan 13 13:36 docs
+drwxr-xr-x 12 shreyjoshi staff 384 Dec 22 22:11 invokeai
+-rw-r--r-- 1 shreyjoshi staff 0 Feb 12 23:58 ls.out
+drwxr-xr-x 20 shreyjoshi staff 640 Nov 11 17:19 miniconda3
+drwxr-xr-x 3 shreyjoshi staff 96 Jan 4 11:16 nltk_data
+shreyjoshi console Feb 2 10:18
+shreyjoshi ttys000 Feb 12 23:55
+
+6.
+
+$ cat > days
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Saturday
+Sunday
+
+$ cat days | sort
+Friday
+Monday
+Saturday
+Sunday
+Thursday
+Tuesday
+Wednesday
+
+$ cat days | grep T
+Tuesday
+Thursday
+
+$ cat days | grep T | sort
+Tuesday
+Thursday
+
+7.
+
+$ ls -l /etc /usr/bin /sbin >> output.txt &

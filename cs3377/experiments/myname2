@@ -1,0 +1,3 @@
+read -p "Enter name: " name
+echo $name > PID.name
+echo $$ >> PID.name

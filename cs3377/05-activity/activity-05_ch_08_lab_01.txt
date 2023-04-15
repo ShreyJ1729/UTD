@@ -1,0 +1,42 @@
+1.
+echo 'hi there comet' > short
+
+2.
+cat short
+ls -l short
+
+3.
+chmod +x short
+ls -l short
+./short
+
+4.
+echo '#!/bin/bash' | cat - short > temp && mv temp short
+
+5.
+echo '#!/bin/bash' > short
+echo '# This script displays the message "hi there comet"' >> short
+echo 'echo "hi there comet"' >> short
+
+6.
+echo '#!/bin/bash' > first
+echo '# This script displays the first argument passed to the script' >> first
+echo 'echo "$1"' >> first
+chmod +x first
+
+7.
+echo '#!/bin/bash' > cptobak
+echo '# This script copies the file named by its first argument to a file with the same name and the .bak extension' >> cptobak
+echo 'cp "$1" "$1.bak"' >> cptobak
+chmod +x cptobak
+
+touch "file with space"
+./cptobak "file with space"
+
+echo '#!/bin/bash' > cptobak
+echo '# This script copies the file named by its first argument to a file with the same name and the .bak extension' >> cptobak
+echo 'cp "$1" "$1.bak"' >> cptobak
+chmod +x cptobak
+
+touch "file with space"
+./cptobak "file with space"

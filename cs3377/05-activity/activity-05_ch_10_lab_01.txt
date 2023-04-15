@@ -1,0 +1,101 @@
+1)
+
+% ./all
+./all
+0
+
+% ./all p1
+./all
+1
+p1
+
+% ./all p1 p2 p3 p4 p5
+./all
+5
+p1 p2 p3 p4 p5
+
+2) 
+
+% ./linkto p1 p2
+./linkto
+2
+p1 p2
+
+The reported name is `linkto`
+
+3)
+% ./myname
+Enter your name: Shrey
+Hello Shrey
+
+4)
+
+Content of `myname2` script:
+#!/bin/bash
+echo $0
+echo $#
+echo $*
+
+output of PID.name:
+shrey
+94833
+
+5)
+content of script:
+for VARIABLE in "$@"
+do
+    echo $VARIABLE
+done
+
+% ./script p1 p2 p3 p4 p5
+p1
+p2
+p3
+p4
+p5
+
+6)
+content of script2:
+for VARIABLE in "$@"
+do
+    echo $VARIABLE
+done
+
+% ./script2 p1 p2 p3 p4 p5
+p1
+p2
+p3
+p4
+p5
+
+7)
+#!/bin/bash
+
+echo -n "Input a string: "
+read string
+
+if [ -n "$string" ]; then
+  echo "You entered: $string"
+else
+  echo "Where is your input?"
+fi
+
+8)
+#!/bin/bash
+
+echo "The PID of this process is $$"
+echo "The value of myvar is: $myvar"
+
+$ myvar="Hello World"
+$ export myvar
+$ ./echomyvar
+The PID of this process is [PID]
+The value of myvar is: Hello World
+
+$ export -n myvar
+$ echo $myvar
+Hello World
+
+$ unset myvar
+$ echo $myvar
+<no output>
