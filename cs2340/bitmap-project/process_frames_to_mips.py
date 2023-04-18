@@ -2,13 +2,6 @@ from matplotlib import pyplot as plt
 import numpy as np
 from PIL import Image
 
-# read in the gif file
-gif = Image.open("mario-run.gif")
-
-# get the number of frames
-num_frames = gif.n_frames
-# print("Number of frames: " + str(num_frames))
-
 
 def crop_and_resample(gif, i):
     gif.seek(i)
@@ -67,17 +60,13 @@ def write_draw_left_mario(frame, frame_number):
                 "0x00" + "".join(["{:02x}".format(c) for c in pixel[:3]]).upper()
             )
             print(
-                f"\tdraw_left_pixel_with_color_and_offset_immediate({x}, {y}, {hex_value})"
+                f"\tdraw_pixel_with_color_and_offset_immediate({x}, {y}, {hex_value})"
             )
 
     print(f".end_macro")
 
-    plt.imshow(frame)
-    plt.show()
-
-
-def write_draw_idle_mario(frame):
-    pass
+    # plt.imshow(frame)
+    # plt.show()
 
 
 def write_clear_mario(height, width, clear_offset):
@@ -123,8 +112,8 @@ def process_run_frames(gif, num_frames):
 
         write_draw_left_mario(frame, frame_number=i)
 
-        plt.imshow(frame)
-        plt.show()
+        # plt.imshow(frame)
+        # plt.show()
 
     write_clear_mario(height, width, clear_offset=10)
 
@@ -147,13 +136,50 @@ def crop_and_resample_idle(gif, i):
     return frame
 
 
+def write_draw_idle_mario(frame, frame_number):
+    height, width, channels = frame.shape
+    print(f".macro draw_idle_mario_frame_{frame_number}(%ref_x, %ref_y)")
+    # iterate over each pixel in the image, compute hex value of color (ignoring opacity) and print
+    for y in range(height):
+        for x in range(width):
+            pixel = frame[y, x]
+            if (
+                (pixel == [255, 255, 255, 0]).all()
+                or (pixel == [0, 0, 0, 255]).all()
+                or (pixel == [0, 0, 0, 0]).all()
+            ):
+                continue
+            hex_value = (
+                "0x00" + "".join(["{:02x}".format(c) for c in pixel[:3]]).upper()
+            )
+            print(
+                f"\tdraw_pixel_with_color_and_offset_immediate({x}, {y}, {hex_value})"
+            )
+
+    print(f".end_macro")
+
+
+# read in the gif file
+gif = Image.open("mario-run.gif")
+
+# get the number of frames
+num_frames = gif.n_frames
+# print("Number of frames: " + str(num_frames))
+
+
+process_run_frames(gif, num_frames)
+
+
 # now read in the idle frame and do the same thing
 
 gif = Image.open("mario-idle.gif")
 num_frames = gif.n_frames
 
+
 for i in range(num_frames):
     frame = crop_and_resample_idle(gif, i)
 
-    plt.imshow(frame)
-    plt.show()
+    write_draw_idle_mario(frame, frame_number=i)
+
+    # plt.imshow(frame)
+    # plt.show()
