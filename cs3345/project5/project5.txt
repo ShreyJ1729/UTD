@@ -1,0 +1,45 @@
+
+Project #5
+
+Due Dates:  Saturday, April 22 at 11:59pm 
+
+Submit:    eLearning
+
+Late Policy:  24-hour late period, then zero points
+
+Instructions: This is an individual assignment.  All work should be your own.
+
+
+
+Objective:
+
+    Write a program to produce a topological sort of a graph.
+
+
+Overview:
+
+    In this project you will use a topological sort on a graph from an input file in adjacency list form.
+
+
+Details:
+
+    Create a class called TopSortGraph.
+
+    The structure of this class in terms of fields, methods, and inner classes will be up to you.
+    Points will be reduced if your program is not well organized and commented.
+
+    Basic requirements are:
+
+      1) Input a file graph.txt that contains the graph in adjacency list form.
+      2) Perform a topological sort of the graph, outputting the result.
+
+    You are expected to write the topological sort code yourself following the pseudocode found in both the
+    slides and in the textbook.  You may not use code for a topological sort found in other sources.
+
+    Your output should be a list of node values separated by commas.
+    The program should work on any similar input file.  You may assume the file has valid data.
+
+
+Submit to eLearning:
+     TopSortGraph.java
+   

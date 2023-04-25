@@ -32,7 +32,12 @@
 
 
 # -----------------------------------------------
-# LONG GRAPHICS MACROS (CTR-F END_LONG_GRAPHICS_MACROS to find the end)
+# LONG GRAPHICS MACROS
+# these were programmatically generated through using a python script to process
+# frames of a gif of mario running/idling
+# apologies for the ugliness, but it works! storing frames in files and loading into memory kept crashing
+# so this was my last resort.
+# (CTR-F "END_LONG_GRAPHICS_MACROS" to find the end and see the rest of the code)
 # ----------------------------------------------
 
 .macro draw_right_mario_frame_0(%ref_x, %ref_y)
@@ -25579,14 +25584,10 @@
 	draw_pixel_with_color_and_offset_immediate(21, 49, 0x00000000)
 .end_macro
 
-
-# in other file (mario_animation_macros.asm)
-
 # ------------------------------------------------
 # END OF LONG GRAPHICS MACROS
+# END_LONG_GRAPHICS_MACROS
 # ------------------------------------------------
-
-
 
 #  -----------------------------------------------
 # CONSTANTS
