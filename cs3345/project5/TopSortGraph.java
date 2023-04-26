@@ -1,10 +1,29 @@
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
+
+class CycleFoundException extends Exception {
+    public CycleFoundException() {
+        super();
+    }
+}
+
+class Vertex {
+    public String name;
+    public int indegree;
+    public int topNum;
+    public ArrayList<String> neighbors;
+
+    public Vertex(String name) {
+        this.name = name;
+        this.indegree = 0;
+        this.topNum = 0;
+        this.neighbors = new ArrayList<String>();
+    }
+}
 
 public class TopSortGraph {
 
